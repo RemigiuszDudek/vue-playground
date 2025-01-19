@@ -26,13 +26,25 @@ export default {
   },
   provide() {
     return {
-      resources: this.storedResources
+      resources: this.storedResources,
+      addResource: this.addResource
     }
   },
   methods: {
     switchTab(tab) {
       console.log(tab);
       this.selectedTab = tab;
+    },
+    addResource(title, description, link) {
+      this.storedResources.unshift(
+          {
+            id: new Date().toISOString(),
+            title,
+            description,
+            link
+          }
+      );
+      this.selectedTab = 'stored-resources';
     }
   }
 }
@@ -51,7 +63,7 @@ export default {
       Add Resource
     </base-button>
   </base-card>
-  <component :is="selectedTab"/>
+  <component :is="selectedTab" @add-resource="addResource"/>
 </template>
 
 <style scoped>
