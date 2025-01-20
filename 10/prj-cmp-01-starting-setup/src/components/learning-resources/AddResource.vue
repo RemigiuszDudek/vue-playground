@@ -2,23 +2,31 @@
 
 import BaseCard from "@/components/UI/BaseCard.vue";
 import BaseButton from "@/components/UI/BaseButton.vue";
+import BaseDialog from "@/components/UI/BaseDialog.vue";
 
 export default {
+  data() {
+    return {
+      isFormValid: true
+    }
+  },
   components: {
+    BaseDialog,
     BaseCard,
     BaseButton
   },
   inject: ['addResource'],
-  emits: {
-    'add-resource': function (resource) {
-      return typeof resource.title === 'string' && resource.title.length > 0;
-    }
-  },
   methods: {
     submitResource() {
       const title = this.$refs.title.value;
       const description = this.$refs.description.value;
       const link = this.$refs.link.value;
+
+      if (title.trim() === '' || description.trim() === '' || link.trim() === '') {
+        this.isFormValid = false;
+        return;
+      }
+
       this.addResource(title, description, link);
     }
   }
@@ -26,6 +34,14 @@ export default {
 </script>
 
 <template>
+  <base-dialog v-if="!isFormValid" title="Invalid input" @close="isFormValid = true">
+    <div>
+      <p>Please make sure that all inputs have non-blank value</p>
+    </div>
+    <template v-slot:actions>
+      <base-button @click="isFormValid = true">Ok</base-button>
+    </template>
+  </base-dialog>
   <base-card>
     <form @submit.prevent="submitResource">
       <div class="form-control">
@@ -44,7 +60,6 @@ export default {
         <base-button type="submit" mode="flat">Add Resource</base-button>
       </div>
     </form>
-
   </base-card>
 </template>
 

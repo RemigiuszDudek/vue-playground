@@ -27,13 +27,18 @@ export default {
   provide() {
     return {
       resources: this.storedResources,
-      addResource: this.addResource
+      addResource: this.addResource,
+      removeResource: this.removeResource
     }
   },
   methods: {
     switchTab(tab) {
       console.log(tab);
       this.selectedTab = tab;
+    },
+    removeResource(resourceId) {
+      const index = this.storedResources.findIndex(resource => resource.id === resourceId);
+      this.storedResources.splice(index, 1);
     },
     addResource(title, description, link) {
       this.storedResources.unshift(
@@ -63,7 +68,9 @@ export default {
       Add Resource
     </base-button>
   </base-card>
-  <component :is="selectedTab" @add-resource="addResource"/>
+  <keep-alive>
+    <component :is="selectedTab" @add-resource="addResource"/>
+  </keep-alive>
 </template>
 
 <style scoped>

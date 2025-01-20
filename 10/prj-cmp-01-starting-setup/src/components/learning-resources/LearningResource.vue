@@ -4,6 +4,7 @@ import BaseButton from "@/components/UI/BaseButton.vue";
 
 export default {
   components: {BaseButton},
+  inject: ['removeResource'],
   props: {
     id: String,
     title: String,
@@ -18,7 +19,7 @@ export default {
     <base-card>
       <header>
         <h3>{{ title }}</h3>
-        <base-button mode="flat">Delete</base-button>
+        <base-button mode="flat" @click="removeResource(this.id)">Delete</base-button>
       </header>
       <p>{{ description }}</p>
       <nav>
