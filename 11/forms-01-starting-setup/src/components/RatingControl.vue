@@ -23,9 +23,9 @@ export default {
 
 <template>
 <ul>
-  <li :class="{active: this.activeRating === 'poor'}"><button type="button" @click="this.setActiveRating('poor')">Poor</button></li>
-  <li :class="{active: this.activeRating === 'average'}"><button type="button" @click="this.setActiveRating('average')">Average</button></li>
-  <li :class="{active: this.activeRating === 'great'}"><button type="button" @click="this.setActiveRating('great')">Great</button></li>
+  <li :class="{active: this.modelValue === 'poor'}"><button type="button" @click="this.setActiveRating('poor')">Poor</button></li>
+  <li :class="{active: this.modelValue === 'average'}"><button type="button" @click="this.setActiveRating('average')">Average</button></li>
+  <li :class="{active: this.modelValue === 'great'}"><button type="button" @click="this.setActiveRating('great')">Great</button></li>
 </ul>
 </template>
 
