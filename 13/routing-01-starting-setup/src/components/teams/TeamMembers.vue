@@ -17,13 +17,13 @@ import UserItem from '../users/UserItem.vue';
 
 export default {
   created() {
-    const teamId = this.$route.params.teamId;
-    const team = this.teams.find((team) => team.id === teamId);
+    const team = this.teams.find((team) => team.id === this.teamId);
     const users = this.users.filter((user) => team.members.includes(user.id));
 
     this.teamName = team.name;
     this.members = users;
   },
+  props: ['teamId'],
   inject: ['teams', 'users'],
   components: {
     UserItem
