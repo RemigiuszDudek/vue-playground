@@ -3,10 +3,10 @@
     <h2>{{ teamName }}</h2>
     <ul>
       <user-item
-        v-for="member in members"
-        :key="member.id"
-        :name="member.fullName"
-        :role="member.role"
+          v-for="member in members"
+          :key="member.id"
+          :name="member.fullName"
+          :role="member.role"
       ></user-item>
     </ul>
   </section>
@@ -21,7 +21,11 @@ export default {
     const users = this.users.filter((user) => team.members.includes(user.id));
 
     this.teamName = team.name;
-    this.members = users;
+    this.sort = this.$route.query.sort;
+    this.members = users.sort((a, b) => {
+      const modifier = this.sort === 'asc' ? 1 : -1;
+      return modifier * a.fullName.localeCompare(b.fullName);
+    });
   },
   props: ['teamId'],
   inject: ['teams', 'users'],
@@ -32,6 +36,7 @@ export default {
     return {
       teamName: null,
       members: null,
+      sort: null
     };
   },
 };
