@@ -7,6 +7,14 @@ const app = createApp(App);
 const store = createStore({
     state() {
         return { counter: 0 }
+    },
+    mutations: {
+        increment(state) {
+            state.counter++
+        },
+        increase(state, payload) {
+            state.counter += payload.value
+        }
     }
 })
 
