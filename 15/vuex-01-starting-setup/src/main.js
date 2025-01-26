@@ -6,7 +6,10 @@ import { createStore } from "vuex";
 const app = createApp(App);
 const store = createStore({
     state() {
-        return { counter: 0 }
+        return {
+            counter: 0,
+            authenticated: false
+        }
     },
     mutations: {
         increment(state) {
@@ -14,19 +17,33 @@ const store = createStore({
         },
         increase(state, payload) {
             state.counter += payload.value
+        },
+        login(state) {
+            state.authenticated = true
+        },
+        logout(state) {
+            state.authenticated = false
         }
     },
     actions: {
         // actions can be async
-
         increment(context) {
             context.commit('increment')
         },
         increase(context, payload) {
             context.commit('increase', payload)
+        },
+        login(context) {
+            context.commit('login')
+        },
+        logout(context) {
+            context.commit('logout')
         }
     },
     getters: {
+        isAuthenticated(state) {
+            return state.authenticated
+        },
         finalCounter(state) {
             return state.counter
         },
