@@ -1,7 +1,7 @@
 <template>
   <base-container title="Vuex" v-if="$store.getters.isAuthenticated">
-    <h3>{{ this.$store.getters.normalizedCounter }}</h3>
-    <h3>{{ this.$store.getters.finalCounter }}</h3>
+    <h3>{{ this.$store.getters['counter/normalizedCounter'] }}</h3>
+    <h3>{{ this.$store.getters['counter/finalCounter'] }}</h3>
     <button @click="increment">Add 1</button>
     <button @click="increase">Add 10</button>
   </base-container>
@@ -21,10 +21,10 @@ export default {
   },
   methods: {
     increment() {
-      this.$store.dispatch('increment')
+      this.$store.dispatch('counter/increment')
     },
     increase() {
-      this.$store.commit('increase', { value: 10 })
+      this.$store.commit('counter/increase', { value: 10 })
     }
   }
 };
