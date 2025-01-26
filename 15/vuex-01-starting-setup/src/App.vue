@@ -1,5 +1,8 @@
 <template>
-  <base-container title="Vuex"></base-container>
+  <base-container title="Vuex">
+    <h3>{{ this.$store.state.counter }}</h3>
+    <button @click="increment">Add 1</button>
+  </base-container>
 </template>
 
 <script>
@@ -9,6 +12,11 @@ export default {
   components: {
     BaseContainer,
   },
+  methods: {
+    increment() {
+      this.$store.state.counter++
+    }
+  }
 };
 </script>
 
