@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     increment() {
-      this.$store.commit('increment')
+      this.$store.dispatch('increment')
     },
     increase() {
       this.$store.commit('increase', { value: 10 })
