@@ -5,8 +5,15 @@ export default {
         }
     },
     getters: {
-        getCart(state) {
-            return state.cart
+        getQuantity(state) {
+            return state.cart.qty
+        },
+        getTotal(state) {
+            console.log(state)
+            return state.cart.total.toFixed(2).replace('-0', '0')
+        },
+        getItems(state) {
+            return state.cart.items
         }
     },
     mutations: {
