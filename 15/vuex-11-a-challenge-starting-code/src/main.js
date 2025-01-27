@@ -1,19 +1,11 @@
 import { createApp } from 'vue';
 
 import router from './router.js';
-import productsComponent from './store/productsComponent';
-import cartComponent from './store/cartComponent';
 import App from './App.vue';
 import BaseBadge from './components/ui/BaseBadge.vue';
-import { createStore } from "vuex";
+import store from "@/store";
 
 const app = createApp(App)
-const store = createStore({
-    modules: {
-        products: productsComponent,
-        cart: cartComponent
-    }
-})
 
 app.use(router);
 app.use(store)
