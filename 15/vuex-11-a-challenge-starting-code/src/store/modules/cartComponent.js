@@ -2,53 +2,53 @@ export default {
     namespaced: true,
     state() {
         return {
-            cart: { items: [], total: 0, qty: 0 },
+            items: [], total: 0, qty: 0
         }
     },
     getters: {
         getQuantity(state) {
-            return state.cart.qty
+            return state.qty
         },
         getTotal(state) {
             console.log(state)
-            return state.cart.total.toFixed(2).replace('-0', '0')
+            return state.total.toFixed(2).replace('-0', '0')
         },
         getItems(state) {
-            return state.cart.items
+            return state.items
         },
         getProductIndex: (state) => (id) => {
-            return state.cart.items.findIndex(
+            return state.items.findIndex(
                 (ci) => ci.productId === id
             );
         }
     },
     mutations: {
         addProductToCart(state, productData) {
-            state.cart.items.push(productData);
+            state.items.push(productData);
         },
 
         incrementProductQty(state, index) {
-            state.cart.items[index].qty++
+            state.items[index].qty++
         },
 
         removeProductFromCart(state, index) {
-            state.cart.items.splice(index, 1);
+            state.items.splice(index, 1);
         },
 
         incrementCartQty(state) {
-            state.cart.qty++
+            state.qty++
         },
 
         subtractFromCartQuantity(state, qty) {
-            state.cart.qty -= qty;
+            state.qty -= qty;
         },
 
         addToTotal(state, amount) {
-            state.cart.total += amount
+            state.total += amount
         },
 
         subtractFromTotal(state, amount) {
-            state.cart.total -= amount
+            state.total -= amount
         }
     },
     actions: {
@@ -72,7 +72,7 @@ export default {
         },
         removeProductFromCart(ctx, prodId) {
             const productInCartIndex = ctx.getters.getProductIndex(prodId);
-            const prodData = ctx.state.cart.items[productInCartIndex];
+            const prodData = ctx.state.items[productInCartIndex];
             ctx.commit('removeProductFromCart', productInCartIndex);
             ctx.commit('subtractFromCartQuantity', prodData.qty)
             ctx.commit('subtractFromTotal', prodData.price * prodData.qty)
