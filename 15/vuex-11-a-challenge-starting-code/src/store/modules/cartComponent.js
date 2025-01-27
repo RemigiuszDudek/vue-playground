@@ -52,20 +52,20 @@ export default {
         }
     },
     actions: {
-        addProductToCart({ commit, getters }, productData) {
-            const productInCartIndex = getters.getProductIndex(productData.id);
+        addProductToCart({ commit, getters, rootGetters }, productId) {
+            const productData = rootGetters['products/getProduct'](productId)
+            const productInCartIndex = getters.getProductIndex(productId);
 
             if (productInCartIndex >= 0) {
                 commit('incrementProductQty', productInCartIndex)
             } else {
-                const newItem = {
+                commit('addProductToCart', {
                     productId: productData.id,
                     title: productData.title,
                     image: productData.image,
                     price: productData.price,
                     qty: 1,
-                };
-                commit('addProductToCart', newItem);
+                });
             }
             commit('incrementCartQty')
             commit('addToTotal', productData.price);

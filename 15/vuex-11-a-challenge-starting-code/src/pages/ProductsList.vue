@@ -2,7 +2,7 @@
   <section>
     <ul>
       <product-item
-        v-for="prod in $store.getters['getProducts']"
+        v-for="prod in $store.getters['products/getProducts']"
         :key="prod.id"
         :id="prod.id"
         :title="prod.title"

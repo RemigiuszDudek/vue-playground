@@ -1,4 +1,5 @@
 export default {
+    namespaced: true,
     state() {
         return {
             products: [
@@ -34,6 +35,9 @@ export default {
     getters: {
         getProducts(state) {
             return state.products
+        },
+        getProduct: (state) => (id) => {
+            return state.products.filter(it => it.id === id)[0]
         }
     }
 }
