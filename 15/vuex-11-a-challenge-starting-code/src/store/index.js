@@ -27,8 +27,12 @@ const store = createStore({
         logout({ commit }) {
             commit('logout');
         },
+    },
+    getters: {
+        isAuthenticated(state) {
+            return state.isLoggedIn
+        }
     }
-
 })
 
 export default store;
