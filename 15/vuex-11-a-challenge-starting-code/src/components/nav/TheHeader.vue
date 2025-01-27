@@ -10,7 +10,7 @@
         </li>
         <li>
           <router-link to="/cart">Cart</router-link>
-          <base-badge mode="elegant">{{ this.$store.getters['getQuantity'] }}</base-badge>
+          <base-badge mode="elegant">{{ this.$store.getters['cart/getQuantity'] }}</base-badge>
         </li>
         <li v-if="isLoggedIn">
           <router-link to="/admin">Admin</router-link>

@@ -4,7 +4,7 @@
     <h3>Total Amount: <base-badge mode="elegant">${{ cartTotal }}</base-badge></h3>
     <ul>
       <cart-item
-        v-for="item in this.$store.getters['getItems']"
+        v-for="item in this.$store.getters['cart/getItems']"
         :key="item.productId"
         :prod-id="item.productId"
         :title="item.title"
@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     cartTotal() {
-      return this.$store.getters['getTotal'];
+      return this.$store.getters['cart/getTotal'];
     }
   }
 };
