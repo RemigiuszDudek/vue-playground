@@ -3,6 +3,9 @@ import CoachCard from "@/components/coatches/list/CoachCard.vue";
 
 export default {
   components: { CoachCard },
+  mounted() {
+    return this.$store.dispatch('coaches/loadCoaches')
+  }
 }
 </script>
 
