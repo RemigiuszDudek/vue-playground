@@ -16,7 +16,11 @@ export default {
             return state.coaches
         },
         getCoach: (state) => (id) => {
-            return state.coaches.filter(it => it.id === id)
+            const filteredCoaches = state.coaches.filter(it => it.id === id);
+
+            if (filteredCoaches.length > 1) throw Error(`too many coaches: ${JSON.stringify(filteredCoaches)}`)
+
+            return filteredCoaches.length === 1 ? filteredCoaches[0] : null
         }
     },
     mutations: {
@@ -25,6 +29,12 @@ export default {
         }
     },
     actions: {
+        loadCoach({ getters, dispatch }, id) {
+            const coach = getters['getCoach'](id)
+            if (!coach) {
+                return dispatch('loadCoaches')
+            }
+        },
         loadCoaches({ commit }) {
             return fetch('https://coach-finder-70a20-default-rtdb.europe-west1.firebasedatabase.app/coaches.json')
                 .then(resp => resp.json())
