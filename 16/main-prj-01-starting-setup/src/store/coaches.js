@@ -39,7 +39,6 @@ export default {
             return fetch('https://coach-finder-70a20-default-rtdb.europe-west1.firebasedatabase.app/coaches.json')
                 .then(resp => resp.json())
                 .then(coaches => {
-                    console.log(coaches)
                     commit('setCoaches', coaches)
                 })
         }
