@@ -8,11 +8,6 @@ export default {
     name: String,
     expertises: Array,
     pricePerHour: Number
-  },
-  methods: {
-    details() {
-      this.$router.push({ name: 'coach-details', params: { id: this.id } })
-    }
   }
 }
 </script>
@@ -27,8 +22,12 @@ export default {
     </base-badge>
     <div>{{ pricePerHour }} $</div>
     <div>
-      <base-button>Contact</base-button>
-      <base-button @click="this.details">View details</base-button>
+      <base-button @click="$router.push({ name: 'coach-contact-form', params: { id: this.id } })">
+        Contact
+      </base-button>
+      <base-button @click="this.$router.push({ name: 'coach-details', params: { id: this.id } })">
+        View details
+      </base-button>
     </div>
   </base-card>
 </template>
