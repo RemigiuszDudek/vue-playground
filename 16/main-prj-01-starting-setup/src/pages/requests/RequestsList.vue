@@ -1,5 +1,5 @@
 <script>
-import BaseCard from "@/components/ui/BaseCard.vue";
+import BaseCard from "@/pages/ui/BaseCard.vue";
 
 export default {
   components: { BaseCard },

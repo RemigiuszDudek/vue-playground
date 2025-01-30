@@ -1,6 +1,6 @@
 <script>
-import CoachCard from "@/components/coatches/list/CoachCard.vue";
-import CoachesFilter from "@/components/coatches/list/CoachesFilter.vue";
+import CoachCard from "@/pages/coatches/list/CoachCard.vue";
+import CoachesFilter from "@/pages/coatches/list/CoachesFilter.vue";
 
 export default {
   components: { CoachesFilter, CoachCard },

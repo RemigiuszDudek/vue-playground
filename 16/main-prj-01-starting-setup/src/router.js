@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
-import CoachesList from "@/components/coatches/list/CoachesList.vue";
-import CoachDetails from "@/components/coatches/details/CoachDetails.vue";
-import RequestsList from "@/components/requests/RequestsList.vue";
-import ContactForm from "@/components/requests/ContactForm.vue";
+import CoachesList from "@/pages/coatches/list/CoachesList.vue";
+import CoachDetails from "@/pages/coatches/details/CoachDetails.vue";
+import RequestsList from "@/pages/requests/RequestsList.vue";
+import ContactForm from "@/pages/requests/ContactForm.vue";
 
 const router = createRouter({
     history: createWebHistory(),
