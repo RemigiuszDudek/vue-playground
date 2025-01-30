@@ -10,7 +10,6 @@ export default {
   },
   watch: {
     selectedExpertises() {
-      console.log(this.selectedExpertises);
       this.$emit('filter', this.selectedExpertises);
     },
   },

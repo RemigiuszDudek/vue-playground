@@ -12,4 +12,6 @@ app.use(router)
 app.component('base-badge', BaseBadge);
 app.component('base-card', BaseCard);
 
-app.mount('#app');
+store.dispatch('loadState').then(() => {
+    app.mount('#app')
+})

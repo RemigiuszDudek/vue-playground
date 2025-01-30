@@ -3,7 +3,7 @@ export default {
   props: ['id'],
   data() {
     return {
-      to: '',
+      coachName: '',
       email: '',
       message: ''
     }
@@ -11,11 +11,15 @@ export default {
   methods: {
     sendMessage() {
       const message = {
-        to: this.to,
+        coachId: this.id,
         email: this.email,
         message: this.message
       }
-      console.log(message)
+      this.$store.dispatch('requests/addRequest', message)
+          .then(() => {
+            this.email = ''
+            this.message = ''
+          })
     }
   },
   beforeCreate() {
@@ -23,7 +27,7 @@ export default {
         .then(() => {
           const coach = (this.$store.getters['coaches/getCoach'](this.id))
           if (coach) {
-            this.to = coach.name
+            this.coachName = coach.name
           }
         })
   }
@@ -36,7 +40,7 @@ export default {
   <form @submit.prevent="sendMessage">
     <div>
       <label for="to">Coach</label>
-      <input type="text" id="to" :value="to" readonly disabled>
+      <input type="text" id="to" :value="coachName" readonly disabled>
     </div>
     <div>
       <label for="email">Your email</label>
