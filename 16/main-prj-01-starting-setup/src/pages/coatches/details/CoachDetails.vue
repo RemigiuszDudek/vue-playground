@@ -34,6 +34,8 @@ export default {
       </li>
     </ul>
   </div>
+  <router-link :to="{ name: 'coach-contact-form' }">Contact</router-link>
+  <router-view></router-view>
 </template>
 
 <style scoped>
