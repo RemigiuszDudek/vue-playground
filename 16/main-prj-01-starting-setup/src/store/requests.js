@@ -13,7 +13,6 @@ export default {
     },
     getters: {
         getRequests(state) {
-            console.log('getRequests', state.requests)
             return state.requests
         }
     },

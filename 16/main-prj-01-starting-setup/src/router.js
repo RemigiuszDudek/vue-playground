@@ -3,6 +3,7 @@ import CoachesList from "@/pages/coatches/list/CoachesList.vue";
 import CoachDetails from "@/pages/coatches/details/CoachDetails.vue";
 import RequestsList from "@/pages/requests/RequestsList.vue";
 import ContactForm from "@/pages/coatches/details/ContactForm.vue";
+import RegistrationComponent from "@/pages/registration/RegistrationComponent.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -14,7 +15,9 @@ const router = createRouter({
                 { path: 'contact', component: ContactForm, props: true, name: 'coach-contact-form' },
             ]
         },
-        { path: '/requests', component: RequestsList }
+        { path: '/requests', component: RequestsList },
+        { path: '/registration', component: RegistrationComponent },
+        { path: '/:notFound(.*)', redirect: '/coaches' }
     ]
 })
 

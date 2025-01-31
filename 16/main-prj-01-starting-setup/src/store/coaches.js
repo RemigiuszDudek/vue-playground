@@ -12,6 +12,18 @@ export default {
         }
     },
     getters: {
+        getExpertises(state) {
+            const expertises = []
+            const coaches = state.coaches;
+            coaches.forEach(coach => {
+                coach.expertises.forEach(expertise => {
+                    if (!expertises.includes(expertise)) {
+                        expertises.push(expertise)
+                    }
+                })
+            })
+            return expertises
+        },
         getCoaches(state) {
             return state.coaches
         },
@@ -39,8 +51,14 @@ export default {
             return fetch('https://coach-finder-70a20-default-rtdb.europe-west1.firebasedatabase.app/coaches.json')
                 .then(resp => resp.json())
                 .then(coaches => {
-                    commit('setCoaches', coaches)
+                    commit('setCoaches', Object.keys(coaches).map(key => ({ id: key, ...coaches[key] })))
                 })
+        },
+        register(_, data) {
+            return fetch('https://coach-finder-70a20-default-rtdb.europe-west1.firebasedatabase.app/coaches.json', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
         }
     }
 }

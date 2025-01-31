@@ -11,15 +11,7 @@ export default {
   },
   methods: {
     getExpertises() {
-      const expertises = []
-      this.getCoaches().forEach(coach => {
-        coach.expertises.forEach(expertise => {
-          if (!expertises.includes(expertise)) {
-            expertises.push(expertise)
-          }
-        })
-      })
-      return expertises
+      return this.$store.getters['coaches/getExpertises']
     },
     getCoaches() {
       return this.$store.getters['coaches/getCoaches']

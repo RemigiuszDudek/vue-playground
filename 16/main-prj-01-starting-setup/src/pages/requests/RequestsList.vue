@@ -16,6 +16,7 @@ export default {
 
 <template>
   <h2>Requests list</h2>
+  <router-link to="/registration">Register new coach</router-link>
   <ul>
     <li v-for="request in requests" :key="request.id">
       <base-card>
