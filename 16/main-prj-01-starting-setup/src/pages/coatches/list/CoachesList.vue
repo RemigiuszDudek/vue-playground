@@ -41,7 +41,6 @@ export default {
 </script>
 
 <template>
-  <h2>Coach list</h2>
   <coaches-filter :expertises="this.getExpertises()" @filter="filter"></coaches-filter>
   <ul>
     <coach-card
@@ -55,5 +54,14 @@ export default {
 </template>
 
 <style scoped>
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
 </style>
