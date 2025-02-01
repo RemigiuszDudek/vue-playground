@@ -1,12 +1,15 @@
 <script>
 import CoachCard from "@/pages/coatches/list/CoachCard.vue";
 import CoachesFilter from "@/pages/coatches/list/CoachesFilter.vue";
+import BaseButton from "@/pages/ui/BaseButton.vue";
+import BaseCard from "@/pages/ui/BaseCard.vue";
+import BaseSpinner from "@/pages/ui/BaseSpinner.vue";
 
 export default {
-  components: { CoachesFilter, CoachCard },
+  components: { BaseSpinner, BaseCard, BaseButton, CoachesFilter, CoachCard },
   data() {
     return {
-      coaches: [],
+      isLoading: false,
       filteredExpertises: [],
     }
   },
@@ -15,31 +18,37 @@ export default {
       return this.filteredExpertises.length > 0
           ? this.coaches.filter(coach => this.filteredExpertises.some(expertise => coach.expertises.includes(expertise)))
           : this.coaches;
+    },
+    coaches() {
+      return this.$store.getters['coaches/getCoaches']
     }
   },
   methods: {
     getExpertises() {
       return this.$store.getters['coaches/getExpertises']
     },
-    getCoaches() {
-      return this.$store.getters['coaches/getCoaches']
-    },
     filter(selectedExpertises) {
       this.filteredExpertises = selectedExpertises;
+    },
+    async refresh() {
+      this.isLoading = true
+      await this.$store.dispatch('coaches/loadCoaches')
+      this.isLoading = false
     }
   },
   created() {
     return this.$store.dispatch('coaches/loadCoaches')
-        .then(() => {
-          this.coaches = this.getCoaches()
-        })
   }
 }
 </script>
 
 <template>
   <coaches-filter :expertises="this.getExpertises()" @filter="filter"></coaches-filter>
-  <ul>
+  <base-card>
+    <base-button @click="refresh" mode="outline">Refresh</base-button>
+  </base-card>
+  <base-spinner v-if="this.isLoading"></base-spinner>
+  <ul v-else>
     <coach-card
         :key="coach.id"
         :id="coach.id"
