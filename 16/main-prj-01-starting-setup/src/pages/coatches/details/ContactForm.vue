@@ -47,11 +47,11 @@ export default {
     </div>
     <div class="form-control">
       <label for="email">Your email</label>
-      <input type="email" id="email" required v-model="email">
+      <input type="email" id="email" required v-model.trim="email">
     </div>
     <div class="form-control">
       <label for="message">Your message</label>
-      <textarea id="message" rows="5" required v-model="message"></textarea>
+      <textarea id="message" rows="5" required v-model.trim="message"></textarea>
     </div>
     <div class="actions">
       <base-button mode="outline">Send message</base-button>

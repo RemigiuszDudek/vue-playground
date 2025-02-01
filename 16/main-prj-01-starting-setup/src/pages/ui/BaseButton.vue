@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <router-link v-if="link" :to="{ name: 'coach-contact-form' }" :class="mode">Contact</router-link>
+  <router-link v-if="link" :to="{ name: 'coach-contact-form' }" :class="mode"><slot></slot></router-link>
   <button v-else :class="mode">
     <slot></slot>
   </button>
