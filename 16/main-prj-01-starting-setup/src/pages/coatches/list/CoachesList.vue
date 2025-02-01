@@ -6,7 +6,15 @@ export default {
   components: { CoachesFilter, CoachCard },
   data() {
     return {
-      coaches: []
+      coaches: [],
+      filteredExpertises: [],
+    }
+  },
+  computed: {
+    filteredCoaches() {
+      return this.filteredExpertises.length > 0
+          ? this.coaches.filter(coach => this.filteredExpertises.some(expertise => coach.expertises.includes(expertise)))
+          : this.coaches;
     }
   },
   methods: {
@@ -17,10 +25,7 @@ export default {
       return this.$store.getters['coaches/getCoaches']
     },
     filter(selectedExpertises) {
-      const coaches = this.getCoaches();
-      this.coaches = selectedExpertises.length > 0
-          ? coaches.filter(coach => selectedExpertises.some(expertise => coach.expertises.includes(expertise)))
-          : coaches;
+      this.filteredExpertises = selectedExpertises;
     }
   },
   created() {
@@ -41,7 +46,7 @@ export default {
         :name="coach.name"
         :expertises="coach.expertises"
         :price-per-hour="coach.pricePerHour"
-        v-for="coach in this.coaches"></coach-card>
+        v-for="coach in this.filteredCoaches"></coach-card>
   </ul>
 </template>
 
