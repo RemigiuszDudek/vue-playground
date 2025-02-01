@@ -7,6 +7,7 @@ export default {
     id: String,
     name: String,
     expertises: Array,
+    selectedExpertises: Array,
     pricePerHour: Number
   }
 }
@@ -18,7 +19,7 @@ export default {
     <h4>{{ pricePerHour }} $</h4>
     <base-badge
         :key="expertise"
-        mode="elegant"
+        :mode="selectedExpertises.includes(expertise) ? 'highlight' : 'elegant'"
         v-for="expertise in this.expertises">{{ expertise }}
     </base-badge>
     <div class="actions">

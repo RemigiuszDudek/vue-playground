@@ -45,6 +45,7 @@ export default {
         :id="coach.id"
         :name="coach.name"
         :expertises="coach.expertises"
+        :selected-expertises="this.filteredExpertises"
         :price-per-hour="coach.pricePerHour"
         v-for="coach in this.filteredCoaches"></coach-card>
   </ul>
