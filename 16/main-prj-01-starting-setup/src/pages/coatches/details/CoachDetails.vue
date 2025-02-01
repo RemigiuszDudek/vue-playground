@@ -1,5 +1,10 @@
 <script>
+import BaseCard from "@/pages/ui/BaseCard.vue";
+import BaseBadge from "@/pages/ui/BaseBadge.vue";
+import BaseButton from "@/pages/ui/BaseButton.vue";
+
 export default {
+  components: { BaseButton, BaseBadge, BaseCard },
   props: ['id'],
   data() {
     return {
@@ -23,19 +28,26 @@ export default {
 </script>
 
 <template>
-  <h2>Coach details</h2>
-  <div>name: {{ this.name }}</div>
-  <div>price: {{ this.pricePerHour }}$</div>
-  <div>expertises:
+  <base-card>
+    <h2>{{ this.name }}</h2>
+    <h3>{{ this.pricePerHour }}$</h3>
+  </base-card>
+  <base-card>
+    <header>
+      <h2>Interested? Reach out now!</h2>
+      <base-button link :to="{ name: 'coach-contact-form' }" mode="outline">Contact</base-button>
+    </header>
+    <router-view></router-view>
+  </base-card>
+  <base-card>
     <ul>
-      <li
+      <base-badge
           :key="expertise"
+          mode="elegant"
           v-for="expertise in this.expertises">{{ expertise }}
-      </li>
+      </base-badge>
     </ul>
-  </div>
-  <router-link :to="{ name: 'coach-contact-form' }">Contact</router-link>
-  <router-view></router-view>
+  </base-card>
 </template>
 
 <style scoped>

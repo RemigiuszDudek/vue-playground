@@ -21,7 +21,7 @@ export default {
         mode="elegant"
         v-for="expertise in this.expertises">{{ expertise }}
     </base-badge>
-    <div>
+    <div class="actions">
       <base-button mode="outline" @click="$router.push({ name: 'coach-contact-form', params: { id: this.id } })">
         Contact
       </base-button>

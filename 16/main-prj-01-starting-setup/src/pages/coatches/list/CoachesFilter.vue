@@ -1,5 +1,8 @@
 <script>
+import BaseCard from "@/pages/ui/BaseCard.vue";
+
 export default {
+  components: { BaseCard },
   emits: ['filter'],
   props: {
     expertises: Array,
@@ -19,15 +22,16 @@ export default {
 </script>
 
 <template>
-  <h2>Find your coach</h2>
-  <span
-      :key="expertise"
-      :class="{ 'filter-option': true, 'active': this.selectedExpertises.includes(expertise) }"
-      v-for="expertise in expertises">
+  <base-card>
+    <h2>Find your coach</h2>
+    <span
+        :key="expertise"
+        :class="{ 'filter-option': true, 'active': this.selectedExpertises.includes(expertise) }"
+        v-for="expertise in expertises">
     <label>{{ expertise }}</label>
     <input type="checkbox" name="expertises" :value="expertise" v-model="selectedExpertises"/>
   </span>
-
+  </base-card>
 </template>
 
 <style scoped>

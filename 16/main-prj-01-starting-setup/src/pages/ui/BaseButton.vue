@@ -4,13 +4,18 @@ export default {
     mode: {
       type: String,
       default: 'flat'
+    },
+    link: {
+      type: Boolean,
+      default: false
     }
   }
 }
 </script>
 
 <template>
-  <button :class="mode">
+  <router-link v-if="link" :to="{ name: 'coach-contact-form' }" :class="mode">Contact</router-link>
+  <button v-else :class="mode">
     <slot></slot>
   </button>
 </template>
