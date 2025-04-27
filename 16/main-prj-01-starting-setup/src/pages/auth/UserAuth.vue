@@ -2,15 +2,18 @@
 
 import BaseButton from "@/pages/ui/BaseButton.vue";
 import {defineComponent} from "vue";
+import BaseDialog from "@/pages/ui/BaseDialog.vue";
 
 export default defineComponent({
-  components: {BaseButton},
+  components: {BaseDialog, BaseButton},
   data() {
     return {
       email: '',
       password: '',
       formIsValid: true,
-      mode: 'login'
+      mode: 'login',
+      isLoading: false,
+      error: null
     }
   },
   computed: {
@@ -25,23 +28,31 @@ export default defineComponent({
     switchMode() {
       this.mode = this.mode === 'login' ? 'signup' : 'login'
     },
-    submitForm() {
+    async submitForm() {
       this.formIsValid = true;
       if (!this.email.includes('@') || !this.email.trim() || this.password.length < 6) {
         this.formIsValid = false;
         return;
       }
-      if (this.mode === 'login') {
-        this.$store.dispatch('login', {
-          email: this.email,
-          password: this.password
-        })
-      } else {
-        this.$store.dispatch('signup', {
-          email: this.email,
-          password: this.password
-        })
+
+      this.isLoading = true;
+      try {
+        if (this.mode === 'login') {
+          await this.$store.dispatch('login', {
+            email: this.email,
+            password: this.password
+          })
+        } else {
+          await this.$store.dispatch('signup', {
+            email: this.email,
+            password: this.password
+          })
+        }
+      } catch (e) {
+        this.error = e.message || `Failed to ${this.mode}`
       }
+
+      this.isLoading = false;
     }
   },
 })
@@ -49,21 +60,31 @@ export default defineComponent({
 </script>
 
 <template>
-  <base-card>
-    <form @submit.prevent="submitForm">
-      <div class="form-control">
-        <label for="email">Email</label>
-        <input type="email" id="email" v-model.trim="email" required/>
-      </div>
-      <div class="form-control">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model.trim="password" required/>
-      </div>
-      <p v-if="!formIsValid">Please provide valid email and password (must to have at least 6 chars)</p>
-      <base-button mode="outline">{{ submitButtonCaption }}</base-button>
-      <base-button mode="flat" @click="switchMode">{{ switchModeButtonCaption }}</base-button>
-    </form>
-  </base-card>
+  <div>
+    <base-dialog title="Authentication failed" v-if="error">
+      <template #header>
+        <p>{{ error }}</p>
+      </template>
+      <template #actions>
+        <base-button @click="error = null">Close</base-button>
+      </template>
+    </base-dialog>
+    <base-card v-else>
+      <form @submit.prevent="submitForm">
+        <div class="form-control">
+          <label for="email">Email</label>
+          <input type="email" id="email" v-model.trim="email" required/>
+        </div>
+        <div class="form-control">
+          <label for="password">Password</label>
+          <input type="password" id="password" v-model.trim="password" required/>
+        </div>
+        <p v-if="!formIsValid">Please provide valid email and password (must to have at least 6 chars)</p>
+        <base-button mode="outline">{{ submitButtonCaption }}</base-button>
+        <base-button mode="flat" @click="switchMode">{{ switchModeButtonCaption }}</base-button>
+      </form>
+    </base-card>
+  </div>
 </template>
 
 <style>
