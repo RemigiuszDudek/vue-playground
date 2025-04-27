@@ -37,16 +37,11 @@ export default defineComponent({
 
       this.isLoading = true;
       try {
+        const actionPayload = {email: this.email, password: this.password};
         if (this.mode === 'login') {
-          await this.$store.dispatch('login', {
-            email: this.email,
-            password: this.password
-          })
+          await this.$store.dispatch('login', actionPayload)
         } else {
-          await this.$store.dispatch('signup', {
-            email: this.email,
-            password: this.password
-          })
+          await this.$store.dispatch('signup', actionPayload)
         }
       } catch (e) {
         this.error = e.message || `Failed to ${this.mode}`

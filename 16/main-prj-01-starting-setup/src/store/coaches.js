@@ -38,6 +38,9 @@ export default {
     mutations: {
         setCoaches(state, coaches) {
             state.coaches = coaches
+        },
+        addCoach(state, coach) {
+            state.coaches.push(coach)
         }
     },
     actions: {
@@ -54,10 +57,20 @@ export default {
                     commit('setCoaches', Object.keys(coaches).map(key => ({ id: key, ...coaches[key] })))
                 })
         },
-        register(_, data) {
-            return fetch('https://coach-finder-70a20-default-rtdb.europe-west1.firebasedatabase.app/coaches.json', {
-                method: 'POST',
+        async register(context, data) {
+            const userId = context.rootGetters.userId
+            const response = await fetch(`https://coach-finder-70a20-default-rtdb.europe-west1.firebasedatabase.app/coaches/${userId}.json?auth=${context.rootGetters.token}`, {
+                method: 'PUT',
                 body: JSON.stringify(data)
+            })
+
+            const responseData = await response.json();
+            if (!response.ok) {
+                throw new Error(responseData.message || 'Failed to register coach')
+            }
+            context.commit('addCoach', {
+                id: userId,
+                ...data
             })
         }
     }
